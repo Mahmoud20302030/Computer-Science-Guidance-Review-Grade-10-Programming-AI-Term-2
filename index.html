@@ -1,0 +1,815 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المراجعة الشاملة للبرمجة والذكاء الاصطناعي 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Aref+Ruqaa:wght@700&family=Tajawal:wght@500;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --royal-bg: #030712;
+            --royal-surface: #0f172a;
+            --royal-panel: rgba(15, 23, 42, 0.85);
+            --gold-primary: #D4AF37;
+            --gold-light: #FDF5E6;
+            --cyan-neon: #00E5FF;
+            --text-main: #F8FAFC;
+            --success: #10B981;
+            --danger: #EF4444;
+            --primary-color: #E5C158; /* Footer Color */
+            --primary-glow: rgba(229, 193, 88, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: linear-gradient(135deg, var(--royal-bg), #080f1d); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* Background Matrix */
+        .background-animation { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 80%); }
+        .background-animation::after { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1.5" fill="rgba(0,229,255,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(212,175,55,0.1)"/></svg>'); animation: majesticDrift 100s linear infinite; }
+        @keyframes majesticDrift { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(360deg) translate(-100px, -100px); } }
+
+        /* فئة مخصصة لحل مشكلة الأقواس المعكوسة في الدوال البرمجية والنصوص الإنجليزية (RTL Fix) */
+        .code-ltr {
+            direction: ltr !important;
+            unicode-bidi: isolate;
+            display: inline-block;
+            font-family: monospace, sans-serif;
+            color: var(--cyan-neon);
+            padding: 0 4px;
+        }
+
+        /* زر كتم الصوت الإضافي (لمسة احترافية) */
+        .mute-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            color: var(--cyan-neon);
+            font-size: 1.5rem;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .mute-btn:hover { background: var(--cyan-neon); color: #000; box-shadow: 0 0 25px rgba(0, 229, 255, 0.5); transform: scale(1.1); }
+
+        /* Headers */
+        .title-container { text-align: center; margin: 30px auto 10px; padding: 0 15px; position: relative; z-index: 10; }
+        .main-title { font-family: 'Tajawal', sans-serif; font-size: 3.5rem; font-weight: 900; color: #FFF; text-shadow: 0 0 25px rgba(0,229,255,0.5), 0 5px 15px rgba(0,0,0,0.9); letter-spacing: 1px; }
+        .subtitle { font-size: 1.6rem; color: var(--gold-primary); margin-top: 5px; text-shadow: 0 2px 5px rgba(0,0,0,0.9); font-weight: 900; }
+
+        /* Supervision Box */
+        .supervision-box { background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(3, 7, 18, 0.95)); border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 12px; padding: 20px 30px; margin: 15px auto; max-width: 900px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.1); backdrop-filter: blur(15px); position: relative; }
+        .supervision-box::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 70%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); }
+        .supervision-box h3 { font-size: 1.6rem; color: var(--gold-light); margin-bottom: 15px; border-bottom: 1px dashed rgba(212,175,55,0.3); padding-bottom: 10px; display: inline-block; }
+        .supervision-names { display: flex; justify-content: space-around; flex-wrap: wrap; font-size: 1.2rem; font-weight: 800; color: var(--text-main); }
+        .supervision-names span { color: var(--cyan-neon); font-size: 1.5rem; display: block; margin-top: 5px; font-weight: 900; text-shadow: 0 0 10px rgba(0,229,255,0.3); }
+
+        /* Clean Tickers */
+        .tickers-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 30px; }
+        .ticker-wrap { width: 100%; background: rgba(3, 7, 18, 0.95); padding: 12px 0; overflow: hidden; border-top: 2px solid rgba(0,229,255,0.4); border-bottom: 2px solid rgba(0,229,255,0.4); box-shadow: 0 5px 15px rgba(0,0,0,0.6); }
+        .ticker { display: inline-block; white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 1.4rem; font-weight: 900; color: var(--gold-primary); text-shadow: 1px 1px 2px #000; }
+        .ticker-wrap-arrays { width: 100%; background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05)); padding: 12px 0; overflow: hidden; border-top: 1px dashed var(--gold-primary); border-bottom: 1px dashed var(--gold-primary); box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15); cursor: pointer; transition: 0.3s; }
+        .ticker-arrays { display: inline-block; white-space: nowrap; padding-right: 100%; animation: tickerArrays 45s linear infinite; font-size: 1.4rem; font-family: 'Tajawal', sans-serif; font-weight: 900; color: #FFF; letter-spacing: 1px; }
+        .ticker-wrap-arrays:hover { background: rgba(212, 175, 55, 0.3); border-color: #FFF; }
+        .ticker-wrap-arrays:hover .ticker-arrays { animation-play-state: paused; color: var(--gold-light); }
+        
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        @keyframes tickerArrays { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* HUD Command Center */
+        .hud-container { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 20px; padding: 15px 30px; background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(3, 7, 18, 0.95)); border-radius: 12px; border: 1px solid rgba(0, 229, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .hud-item { text-align: center; font-size: 1.1rem; color: #94A3B8; font-weight: bold; text-transform: uppercase; }
+        .hud-value { display: block; font-size: 2rem; font-weight: 900; color: #FFF; margin-top: 5px; font-family: 'Tajawal', sans-serif; }
+        .streak-fire { color: #F59E0B; text-shadow: 0 0 15px rgba(245,158,11,0.6); transition: all 0.3s; }
+        .timer-value { color: var(--cyan-neon); }
+        .timer-warning { color: var(--danger); animation: heartbeat 1s infinite; text-shadow: 0 0 15px var(--danger); }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        /* Lifelines */
+        .lifelines { display: flex; gap: 15px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .lifeline-btn { background: rgba(0, 229, 255, 0.05); border: 2px solid var(--cyan-neon); color: var(--cyan-neon); padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: 900; transition: all 0.3s; font-size: 1.1rem; box-shadow: inset 0 0 10px rgba(0,229,255,0.1); }
+        .lifeline-btn:hover:not(:disabled) { background: var(--cyan-neon); color: var(--royal-bg); box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); transform: translateY(-2px); }
+        .lifeline-btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: #555; color: #555; background: transparent; transform: none; box-shadow: none; }
+
+        /* Quiz Container */
+        .quiz-container { flex: 1; max-width: 1000px; margin: 0 auto 60px; width: 95%; background: var(--royal-panel); border-radius: 15px; padding: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(212, 175, 55, 0.3); backdrop-filter: blur(25px); position: relative; }
+        .progress-wrapper { width: 100%; background: #030712; height: 10px; border-radius: 10px; margin-bottom: 25px; overflow: hidden; border: 1px solid #1E293B; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--cyan-neon), var(--success)); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 15px var(--cyan-neon); }
+        
+        .category-badge { display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold-primary); color: var(--gold-light); padding: 6px 20px; border-radius: 6px; font-size: 1.2rem; margin-bottom: 20px; font-weight: 900; }
+        .question-text { font-size: 2.2rem; font-weight: 900; margin-bottom: 35px; line-height: 1.6; color: #FFF; text-align: center; }
+        
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .option-btn { background: rgba(3, 7, 18, 0.8); border: 2px solid #1E293B; color: var(--text-main); padding: 18px; font-size: 1.4rem; font-weight: 800; border-radius: 10px; cursor: pointer; transition: all 0.2s ease-in-out; position: relative; overflow: hidden; text-align: right; display: flex; align-items: center; }
+        .option-btn:hover:not(:disabled) { transform: translateY(-3px); border-color: var(--cyan-neon); background: rgba(0, 229, 255, 0.08); }
+        .option-num { color: var(--gold-primary); font-family: 'Tajawal'; font-weight: 900; margin-left: 15px; font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 2px 10px; border-radius: 6px; }
+
+        /* Soft Pulse (No Shake) */
+        .option-btn.correct { background: rgba(16, 185, 129, 0.2); border-color: var(--success); color: var(--success); box-shadow: 0 0 25px rgba(16, 185, 129, 0.3); animation: correctPop 0.4s ease; }
+        .option-btn.wrong { background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger); animation: softError 0.6s ease-out; }
+        .option-btn.hidden { visibility: hidden; opacity: 0; transform: scale(0.9); }
+
+        @keyframes softError { 
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); border-color: rgba(239, 68, 68, 1); background: rgba(239, 68, 68, 0.15); transform: scale(0.98); } 
+            50% { box-shadow: 0 0 20px 10px rgba(239, 68, 68, 0); border-color: rgba(239, 68, 68, 0.5); transform: scale(1); } 
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); border-color: var(--danger); background: transparent; transform: scale(1); } 
+        }
+        @keyframes correctPop { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+        /* Modals */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.98); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(15px); }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .gift-box { background: linear-gradient(135deg, #0f172a, #030712); border: 2px solid var(--gold-primary); padding: 40px; border-radius: 12px; text-align: center; transform: translateY(20px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 600px; width: 90%; }
+        .modal-overlay.active .gift-box { transform: translateY(0) scale(1); }
+        .gift-icon { font-size: 6rem; margin-bottom: 15px; animation: floatIcon 3s infinite ease-in-out; }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .gift-message { font-size: 2.2rem; font-weight: 900; color: var(--gold-light); margin-bottom: 15px; }
+        
+        .btn-primary { background: transparent; color: var(--gold-primary); border: 2px solid var(--gold-primary); padding: 12px 40px; font-size: 1.5rem; font-weight: 900; border-radius: 6px; cursor: pointer; transition: all 0.3s; margin-top: 15px; }
+        .btn-primary:hover { background: rgba(212, 175, 55, 0.15); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); color: #FFF; }
+        
+        .input-name { width: 100%; padding: 18px; font-size: 1.6rem; margin: 20px 0; border-radius: 6px; border: 2px solid #1E293B; text-align: center; background: rgba(3, 7, 18, 0.9); color: #FFF; outline: none; font-family: 'Cairo', sans-serif; font-weight: bold; }
+        .input-name:focus { border-color: var(--gold-primary); }
+
+        /* =========================================================
+           INTERNATIONAL MOTIVATIONAL CERTIFICATE
+           ========================================================= */
+        .certificate-wrapper { display: none; background: #fff; color: #000; width: 100%; max-width: 1050px; margin: 30px auto; padding: 25px; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.8); font-family: 'Cairo', sans-serif; }
+        .cert-outer-border { border: 12px solid #0f172a; padding: 10px; background: #fff; position: relative; }
+        .cert-inner-border { border: 2px solid #C5A059; padding: 35px; display: flex; flex-direction: column; align-items: center; position: relative; outline: 1px solid #C5A059; outline-offset: -6px; background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="watermark" width="400" height="400" patternUnits="userSpaceOnUse"><text x="20" y="200" font-size="60" font-family="Tajawal" font-weight="900" fill="rgba(15,23,42,0.03)" transform="rotate(-30 200 200)">شهادة إنجاز تشجيعية</text></pattern></defs><rect width="100%" height="100%" fill="url(%23watermark)"/></svg>'); }
+        
+        .cert-header-section { width: 100%; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #E2E8F0; padding-bottom: 15px; margin-bottom: 25px; }
+        .tech-icon { width: 85px; }
+        .cert-issuer { text-align: right; font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1.2rem; color: #0f172a; line-height: 1.5; }
+        
+        .cert-title-section { text-align: center; margin-bottom: 20px; }
+        .cert-title-section h1 { font-family: 'Aref Ruqaa', serif; font-size: 4rem; color: #C5A059; margin-bottom: 0; }
+        .cert-title-section h2 { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; color: #333; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; }
+        
+        .cert-body-section { text-align: center; font-size: 1.6rem; line-height: 1.8; margin-bottom: 30px; color: #1E293B; font-weight: 700; width: 90%; }
+        .cert-name { font-family: 'Aref Ruqaa', serif; font-size: 3.8rem; font-weight: 900; color: #0f172a; margin: 15px 0; border-bottom: 3px dashed #C5A059; display: inline-block; padding: 0 50px; line-height: 1.2; }
+        
+        .signatures-box { width: 95%; border: 2px solid #C5A059; border-radius: 8px; padding: 35px 25px 20px; display: flex; justify-content: space-between; align-items: flex-end; background: rgba(197, 160, 89, 0.05); position: relative; margin-top: 15px; }
+        .signatures-box::after { content: ''; position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; border: 1px dotted rgba(197, 160, 89, 0.8); border-radius: 5px; pointer-events: none; }
+        .signatures-box::before { content: 'الاعتمادات والتواقيع (للتحفيز والتقدير)'; position: absolute; top: -16px; right: 30px; background: #fff; padding: 0 20px; color: #0f172a; font-weight: 900; font-size: 1.2rem; border: 1px solid #C5A059; border-radius: 4px; z-index: 2; }
+        
+        .signature-block { text-align: center; width: 35%; position: relative; z-index: 5; }
+        .signature-block h4 { font-size: 1.3rem; color: #0f172a; margin-bottom: 10px; font-weight: 900; }
+        .signature-text { font-family: 'Aref Ruqaa', serif; font-size: 2.5rem; color: #111; transform: rotate(-3deg); margin-top: 10px; }
+        .signature-line { border-top: 2px solid #0f172a; margin: 5px auto; width: 85%; }
+        
+        .modern-badge { position: relative; width: 130px; height: 130px; background: linear-gradient(135deg, #0f172a, #1E293B); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #C5A059; font-weight: bold; border: 4px solid #fff; outline: 2px solid #C5A059; z-index: 10; margin: 0 15px; flex-shrink: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .modern-badge span { font-size: 2.2rem; color: #fff; font-family: 'Tajawal', sans-serif; font-weight: 900; line-height: 1; margin-bottom: 3px; }
+        .modern-badge div { font-size: 1rem; color: #C5A059; letter-spacing: 2px; }
+
+        @media print {
+            @page { size: landscape; margin: 0; }
+            body * { visibility: hidden; }
+            .certificate-wrapper, .certificate-wrapper * { visibility: visible; }
+            .certificate-wrapper { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; transform: scale(1); box-shadow: none; border: none; }
+            .no-print { display: none !important; }
+        }
+        @media (max-width: 768px) { 
+            .main-title { font-size: 2rem; } 
+            .options-grid { grid-template-columns: 1fr; } 
+            .cert-title-section h1 { font-size: 2.5rem; } 
+            .cert-name { font-size: 2rem; padding: 0 10px;} 
+            .signatures-box { flex-direction: column; gap: 30px; padding: 40px 10px 30px; align-items: center; width: 100%; } 
+            .signature-block { width: 100%; } 
+            .modern-badge { margin: 20px 0; width: 110px; height: 110px; }
+            .modern-badge span { font-size: 1.8rem; }
+        }
+
+        /* Confetti */
+        #confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none; }
+        .confetti { position: absolute; width: 10px; height: 10px; background: var(--gold-primary); opacity: 0.9; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
+
+        /* =========================================================
+           FOOTER PROFESSIONALLY CENTERED - SOVEREIGN EAGLE (UNCHANGED)
+           ========================================================= */
+        .footer-wrapper { padding: 80px 20px; background: rgba(2, 5, 10, 0.98); border-top: 3px solid var(--primary-color, #E5C158); display: flex; justify-content: center; align-items: center; margin-top: auto; position: relative; overflow: hidden; height: 550px; flex-shrink: 0; box-shadow: 0 -15px 50px rgba(0,0,0,0.8); }
+        .circle-container { position: relative; width: 480px; height: 480px; display: flex; justify-content: center; align-items: center; }
+        .rotating-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: rotateText 22s linear infinite; z-index: 2; }
+        @keyframes rotateText { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .text-path-style { font-size: 20px; fill: #ffffff; font-family: 'Arial Black', Impact, sans-serif; letter-spacing: 6px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.9)); }
+        .name-highlight { font-size: 28px; font-weight: 900; fill: var(--primary-color, #E5C158); letter-spacing: 4px; text-transform: uppercase; }
+        .center-prayer { position: relative; width: 340px; text-align: center; font-size: 2.2rem; font-weight: 900; color: var(--primary-color, #E5C158); line-height: 1.8; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; text-shadow: 0 1px 0 #cca942, 0 2px 0 #b3943a, 0 3px 0 #997e31, 0 4px 0 #806929, 0 5px 0 #665421, 0 10px 20px rgba(0,0,0,0.9), 0 0 40px var(--primary-glow, rgba(229, 193, 88, 0.4)); }
+        .center-prayer::before { content: "🦅"; font-size: 2.2rem; margin-bottom: 15px; opacity: 0.95; filter: drop-shadow(0 0 10px var(--primary-glow, rgba(229, 193, 88, 0.4))); }
+        .center-prayer::after { content: "🦅"; font-size: 2.2rem; margin-top: 15px; opacity: 0.95; filter: drop-shadow(0 0 10px var(--primary-glow, rgba(229, 193, 88, 0.4))); transform: scaleX(-1); }
+    </style>
+</head>
+<body>
+
+    <button class="mute-btn" id="mute-btn" onclick="toggleMute()" title="كتم / تشغيل الصوت">🔊</button>
+
+    <div class="background-animation"></div>
+    <div id="confetti-container"></div>
+
+    <div class="title-container" id="main-header">
+        <h1 class="main-title">المراجعة الشاملة للبرمجة والذكاء الاصطناعي</h1>
+        <h2 class="subtitle">الصف الأول الثانوي - ترم ثاني 2026</h2>
+    </div>
+
+    <div class="supervision-box" id="supervision">
+        <h3>إشراف توجيه الحاسب الآلي - إدارة ميت غمر التعليمية</h3>
+        <div class="supervision-names">
+            <div>الموجه الأول<span>الأستاذة / عصمت</span></div>
+            <div>موجه الحاسب الآلي<span>الأستاذ / ياسر عبد الله سليم</span></div>
+        </div>
+    </div>
+
+    <div class="tickers-container" id="ticker">
+        <div class="ticker-wrap">
+            <div class="ticker">
+                🌟 المراجعة الشاملة | أسئلة حقيقية بالخيارات الدقيقة من بنك أسئلة التوجيه والنماذج الاسترشادية 🌟 اختبر قدراتك الحقيقية واحصل على شهادة الإنجاز التشجيعية الدولية 🌟
+            </div>
+        </div>
+        <div class="ticker-wrap-arrays" title="قف هنا للقراءة بتركيز">
+            <div class="ticker-arrays">
+                <span>💡 أسرار المصفوفات: الفهرس <span class="code-ltr" dir="ltr">(Index)</span> يبدأ من 0 💡 الخاصية <span class="code-ltr" dir="ltr">length</span> تجلب عدد العناصر 💡 الدالة <span class="code-ltr" dir="ltr">push()</span> تضيف عنصراً في النهاية 💡 الدالة <span class="code-ltr" dir="ltr">pop()</span> تحذف العنصر الأخير 💡 الكود <span class="code-ltr" dir="ltr">arr[arr.length - 1]</span> يجلب العنصر الأخير 💡 المصفوفات تخزن أنواع بيانات مختلفة 💡 يتم ربط <span class="code-ltr" dir="ltr">JS</span> بـ <span class="code-ltr" dir="ltr">HTML</span> عبر الوسم <span class="code-ltr" dir="ltr">&lt;script src="..."&gt;</span> 💡</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hud-container" id="hud">
+        <div class="hud-item">المستوى<span class="hud-value" id="level-display" style="color:var(--bronze)">مبتدئ 🥉</span></div>
+        <div class="hud-item">التقدم<span class="hud-value"><span id="current-q" style="color:var(--cyan-neon)">1</span> / <span id="total-q">0</span></span></div>
+        <div class="hud-item">الوقت<span class="hud-value timer-value" id="timer-display">30</span></div>
+        <div class="hud-item">النقاط<span class="hud-value" id="score-display" style="color:var(--gold-primary)">0</span></div>
+        <div class="hud-item">التتالي<span class="hud-value streak-fire" id="streak-display">🔥 0</span></div>
+    </div>
+
+    <div class="lifelines" id="lifelines-container">
+        <button class="lifeline-btn" id="btn-5050" onclick="use5050()">حذف إجابتين (50:50) ✂️</button>
+        <button class="lifeline-btn" id="btn-freeze" onclick="useFreeze()">تجميد الوقت ❄️</button>
+        <button class="lifeline-btn" id="btn-skip" onclick="useSkip()">تخطي السؤال ⏭️</button>
+    </div>
+
+    <div class="quiz-container" id="quiz-box">
+        <div class="progress-wrapper">
+            <div class="progress-fill" id="progress-bar"></div>
+        </div>
+        <div class="category-badge" id="category-badge">جاري المعالجة...</div>
+        <div class="question-text" id="question-text">جاري تحميل أضخم بنك أسئلة...</div>
+        <div class="options-grid" id="options-grid"></div>
+        <p style="text-align: center; margin-top: 20px; color: #64748B; font-size: 1rem; font-weight: bold;">💡 (ميزة خفية) : استخدم الأرقام 1, 2, 3, 4 للإجابة السريعة - وحرف M لكتم الصوت</p>
+    </div>
+
+    <div class="modal-overlay" id="motivation-modal">
+        <div class="gift-box">
+            <div class="gift-icon">🎁</div>
+            <div class="gift-message" id="motivation-text"></div>
+            <p style="color: #94A3B8; margin-bottom: 25px; font-weight: bold; font-size: 1.4rem;">تهانينا! لقد اجتزت مرحلة هامة بنجاح مبهر. هدية تشجيعية لرفع همتك نحو القمة.</p>
+            <button class="btn-primary" onclick="closeMotivation()">استكمال التحدي 🚀</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="finish-modal">
+        <div class="gift-box" style="max-width: 650px;">
+            <div class="gift-icon">🏆</div>
+            <div class="gift-message">مبروك! لقد أتممت المراجعة الشاملة بقوة وقيادة!</div>
+            <p style="color: #FFF; margin-bottom: 15px; font-size: 1.5rem;">استحققت الآن شهادة الإنجاز التشجيعية الدولية تقديراً لجهدك.</p>
+            <input type="text" id="student-name" class="input-name" placeholder="أدخل اسمك الثلاثي لطباعة الشهادة" autocomplete="off" />
+            <br>
+            <button class="btn-primary" onclick="generateCertificate()">إصدار الشهادة التشجيعية 🥇</button>
+        </div>
+    </div>
+
+    <div class="certificate-wrapper" id="certificate">
+        <div class="cert-outer-border">
+            <div class="cert-inner-border">
+                
+                <div class="cert-header-section">
+                    <svg class="tech-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" stroke="#C5A059" stroke-width="3"/>
+                        <path d="M30 50 L45 65 L70 35" stroke="#0f172a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M50 15 V25 M50 75 V85 M15 50 H25 M75 50 H85" stroke="#C5A059" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <div class="cert-issuer">
+                        توجيه الحاسب الآلي<br>إدارة ميت غمر التعليمية<br>شهادة تقدير معنوي وتفاعل
+                    </div>
+                </div>
+                
+                <div class="cert-title-section">
+                    <h1>شهادة إنجاز وتشجيع</h1>
+                    <h2>Certificate of Academic Excellence</h2>
+                </div>
+                
+                <div class="cert-body-section">
+                    <p>تُمنح هذه الشهادة (لغرض التحفيز والتشجيع المعنوي) تقديراً للمستوى المتميز والطموح العالي للطالب/ة:</p>
+                    <div class="cert-name" id="cert-student-name"></div>
+                    <p>وذلك لاجتيازه/ا المراجعة التفاعلية الشاملة في مادة <strong>البرمجة والذكاء الاصطناعي</strong> (الصف الأول الثانوي - ترم ثاني 2026). نُثمن هذا الجهد ونتمنى لك دوام التفوق في مسيرتك العلمية.</p>
+                </div>
+                
+                <div class="signatures-box">
+                    <div class="signature-block">
+                        <h4>موجه الحاسب الآلي</h4>
+                        <div class="signature-line"></div>
+                        <div class="signature-text">الأستاذ/ ياسر عبد الله سليم</div>
+                    </div>
+                    
+                    <div class="modern-badge">
+                        <span>2026</span>
+                        <div>تفوّق</div>
+                    </div>
+
+                    <div class="signature-block">
+                        <h4>الموجه الأول</h4>
+                        <div class="signature-line"></div>
+                        <div class="signature-text">الأستاذة / عصمت</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px;" class="no-print">
+            <button class="btn-primary" onclick="window.print()" style="margin-left: 20px; background:var(--cyan-neon); color:#000; border-color:var(--cyan-neon);">طباعة الشهادة 🖨️</button>
+            <button class="btn-primary" onclick="location.reload()" style="border-color: #555; color: #94A3B8;">العودة للرئيسية 🔄</button>
+        </div>
+    </div>
+
+    <div class="footer-wrapper" id="page-footer">
+        <div class="circle-container">
+            <svg viewBox="0 0 500 500" class="rotating-svg">
+                <defs><path id="textCirclePath" d="M 250, 440 A 190,190 0 1,1 250,60 A 190,190 0 1,1 250,440" /></defs>
+                <circle cx="250" cy="250" r="215" fill="none" stroke="rgba(229, 193, 88, 0.3)" stroke-width="4" />
+                <circle cx="250" cy="250" r="165" fill="none" stroke="rgba(229, 193, 88, 0.3)" stroke-width="4" />
+                <text><textPath href="#textCirclePath" startOffset="50%" text-anchor="middle" class="text-path-style">
+                    ALL RIGHTS RESERVED ®© DESIGNED & DEVELOPED BY <tspan class="name-highlight">MAHMOUD MOHAMED</tspan>
+                </textPath></text>
+            </svg>
+            <div class="center-prayer">
+                <span>ولا تنسونا من خالص دعائكم بظهر الغيب</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إعدادات الصوت المُحسنة
+        let isMuted = false;
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('mute-btn').innerText = isMuted ? '🔇' : '🔊';
+        }
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playTone(freq, type, duration, vol=0.05) {
+            if (isMuted) return;
+            try {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        // تم حذف الأسئلة المحددة وتغليف الكلمات والأقواس الإنجليزية باحترافية
+        const allQuestions = [
+            // ================== قسم شبكات الكمبيوتر ==================
+            { cat: "🌐 شبكات الكمبيوتر", q: "ما المقصود بشبكة الكمبيوتر ؟", opts: ["مجموعة أجهزة متصلة لتبادل البيانات", "برنامج لتخزين البيانات", "جهاز إخراج", "نظام تشغيل"], ans: 0 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "أي مما يلي يُعد مثالاً على شبكة محلية ؟", opts: ["الإنترنت", "شبكة دولية", "شبكة أجهزة داخل مبنى واحد", "شبكة أقمار صناعية"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "أي من التالي يعتبر وسيلة اتصال لاسلكية ؟", opts: ["كابل الألياف الضوئية", "الكابل النحاسي", "<span class='code-ltr' dir='ltr'>Ethernet</span>", "<span class='code-ltr' dir='ltr'>Wi-Fi</span>"], ans: 3 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "نوع اتصال يتميز بأعلى سرعة في نقل البيانات:", opts: ["الكابل المحوري", "الألياف الضوئية", "<span class='code-ltr' dir='ltr'>Bluetooth</span>", "الأشعة تحت الحمراء"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "وظيفة عنوان الـ <span class='code-ltr' dir='ltr'>IP</span> هي:", opts: ["تحديد اسم الموقع", "حماية البيانات", "زيادة سرعة الإنترنت", "تحديد موقع الجهاز على الشبكة"], ans: 3 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "يتكون عنوان <span class='code-ltr' dir='ltr'>IPv4</span> من:", opts: ["4 أرقام فقط", "4 مجموعات من الأرقام", "6 مجموعات من الحروف", "رقم واحد طويل"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "الشبكة التي تغطي مساحة جغرافية كبيرة تسمى:", opts: ["<span class='code-ltr' dir='ltr'>LAN</span>", "<span class='code-ltr' dir='ltr'>PAN</span>", "<span class='code-ltr' dir='ltr'>WAN</span>", "<span class='code-ltr' dir='ltr'>MAN</span>"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "في نمط <span class='code-ltr' dir='ltr'>Peer to Peer</span> تكون الأجهزة:", opts: ["مرتبطة بخادم رئيسي", "غير قادرة على مشاركة الملفات", "متساوية في الصلاحيات", "متصلة بالإنترنت فقط"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "تقنية <span class='code-ltr' dir='ltr'>Bluetooth</span> تُستخدم غالباً في:", opts: ["الشبكات العالمية", "ربط أجهزة قريبة المدى", "الاتصال عبر الكابلات", "شبكات الخوادم"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "من عيوب الاتصال اللاسلكي:", opts: ["سهولة الاستخدام", "المرونة", "قلة التكلفة", "التأثر بالتشويش"], ans: 3 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "أي من التالي مثال صحيح على عنوان <span class='code-ltr' dir='ltr'>IP</span> ؟", opts: ["<span class='code-ltr' dir='ltr'>www.google.com</span>", "<span class='code-ltr' dir='ltr'>192.168.1.1</span>", "<span class='code-ltr' dir='ltr'>google@com</span>", "<span class='code-ltr' dir='ltr'>http://site</span>"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "ما فائدة أسماء النطاقات <span class='code-ltr' dir='ltr'>(Domain Names)</span> ؟", opts: ["تشفير البيانات", "استبدال عنوان <span class='code-ltr' dir='ltr'>IP</span> باسم سهل التذكر", "منع الاتصال بالإنترنت", "زيادة سعة التخزين"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "من فوائد استخدام الشبكات:", opts: ["زيادة حجم البيانات", "مشاركة الموارد والمعلومات", "تقليل كفاءة الأجهزة", "منع تبادل البيانات"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "يُفضل استخدام الاتصال السلكي لأنه:", opts: ["أقل أماناً", "بطيء", "أكثر استقراراً وأماناً", "يتأثر بالتشويش"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "الخادم المسؤول عن تحويل اسم النطاق إلى عنوان <span class='code-ltr' dir='ltr'>IP</span> هو:", opts: ["<span class='code-ltr' dir='ltr'>Web Server</span>", "<span class='code-ltr' dir='ltr'>File Server</span>", "<span class='code-ltr' dir='ltr'>DNS Server</span>", "<span class='code-ltr' dir='ltr'>Mail Server</span>"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "أي بروتوكول يستخدم في الاتصال عبر الإنترنت ؟", opts: ["<span class='code-ltr' dir='ltr'>HDMI</span>", "<span class='code-ltr' dir='ltr'>USB</span>", "<span class='code-ltr' dir='ltr'>VGA</span>", "<span class='code-ltr' dir='ltr'>TCP/IP</span>"], ans: 3 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "بروتوكول <span class='code-ltr' dir='ltr'>IP</span> مسؤول عن:", opts: ["تشفير البيانات", "تحديد عنوان الجهاز على الشبكة", "عرض صفحات الويب", "إرسال البريد الإلكتروني"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "بروتوكول <span class='code-ltr' dir='ltr'>TCP</span> مسؤول عن:", opts: ["تحديد عنوان الجهاز", "ضمان وصول البيانات كاملة وبالترتيب", "تحويل أسماء النطاقات", "تشفير البيانات"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "في نظام العميل والخادم، يُسمى الحاسوب المركزي بـ:", opts: ["العميل", "الموجه", "الخادم <span class='code-ltr' dir='ltr'>(Server)</span>", "المحول"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "جهاز يعمل كوسيط لنقل البيانات بين الشبكات المختلفة هو:", opts: ["<span class='code-ltr' dir='ltr'>Switch</span>", "<span class='code-ltr' dir='ltr'>Hub</span>", "<span class='code-ltr' dir='ltr'>Router</span>", "<span class='code-ltr' dir='ltr'>Modem</span>"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "شبكة تستخدم لربط الأجهزة بين المدن هي:", opts: ["<span class='code-ltr' dir='ltr'>LAN</span>", "<span class='code-ltr' dir='ltr'>PAN</span>", "<span class='code-ltr' dir='ltr'>WAN</span>", "<span class='code-ltr' dir='ltr'>MAN</span>"], ans: 2 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "شركة أو مؤسسة تُتيح للأفراد الوصول إلى الإنترنت تسمى:", opts: ["<span class='code-ltr' dir='ltr'>DNS</span>", "<span class='code-ltr' dir='ltr'>ISP</span>", "<span class='code-ltr' dir='ltr'>LAN</span>", "<span class='code-ltr' dir='ltr'>TCP</span>"], ans: 1 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "نقل البيانات على شكل وحدات صغيرة يُعرف بـ:", opts: ["<span class='code-ltr' dir='ltr'>Packet Switching</span>", "<span class='code-ltr' dir='ltr'>Circuit Switching</span>", "<span class='code-ltr' dir='ltr'>Peer to Peer</span>", "<span class='code-ltr' dir='ltr'>Client/Server</span>"], ans: 0 },
+            { cat: "🌐 شبكات الكمبيوتر", q: "خادم يعمل كوسيط للوصول للإنترنت لأغراض الأمان:", opts: ["<span class='code-ltr' dir='ltr'>Proxy Server</span>", "<span class='code-ltr' dir='ltr'>File Server</span>", "<span class='code-ltr' dir='ltr'>Print Server</span>", "<span class='code-ltr' dir='ltr'>Database Server</span>"], ans: 0 },
+
+            // ================== قسم قواعد البيانات ==================
+            { cat: "🗄️ قواعد البيانات", q: "قاعدة البيانات هي:", opts: ["مجموعة ملفات غير مرتبة", "برنامج لمعالجة النصوص", "جهاز تخزين خارجي", "مجموعة بيانات منظمة"], ans: 3 },
+            { cat: "🗄️ قواعد البيانات", q: "الهدف الأساسي من استخدام قواعد البيانات هو:", opts: ["تكرار البيانات", "صعوبة الوصول للمعلومات", "سهولة تخزين واسترجاع البيانات", "زيادة حجم الملفات"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "نظام إدارة قواعد البيانات <span class='code-ltr' dir='ltr'>(DBMS)</span> هو:", opts: ["جهاز حاسوب", "لغة برمجة", "برنامج لإدارة قواعد البيانات", "نظام تشغيل"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "يُعد برنامج <span class='code-ltr' dir='ltr'>Microsoft Access</span> مثالاً على:", opts: ["نظام تشغيل", "متصفح", "نظام إدارة قواعد بيانات", "لغة برمجة"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "من مميزات قواعد البيانات:", opts: ["صعوبة التحديث", "تكرار المعلومات", "فقدان البيانات", "سرعة البحث والتعديل"], ans: 3 },
+            { cat: "🗄️ قواعد البيانات", q: "ما المقصود بالجدول <span class='code-ltr' dir='ltr'>(Table)</span> في قاعدة البيانات ؟", opts: ["مجموعة برامج", "مجموعة من السجلات المرتبطة", "ملف صور", "جهاز تخزين"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "العمود في جدول قاعدة البيانات يسمى:", opts: ["سجل", "حقل <span class='code-ltr' dir='ltr'>(Field)</span>", "مفتاح", "نموذج"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "الصف في جدول قاعدة البيانات يسمى:", opts: ["حقل", "نموذج", "سجل <span class='code-ltr' dir='ltr'>(Record)</span>", "استعلام"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "المفتاح الأساسي <span class='code-ltr' dir='ltr'>(Primary Key)</span> هو:", opts: ["حقل يتكرر", "حقل يميز كل سجل تمييزاً فريداً", "نموذج إدخال", "استعلام بحث"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "أي من التالي يُعد مثالاً لحقل في جدول طلاب ؟", opts: ["بيانات الطلاب", "طالب واحد", "رقم الجلوس", "جدول النتائج"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "وظيفة النماذج <span class='code-ltr' dir='ltr'>(Forms)</span> في قواعد البيانات:", opts: ["تخزين البيانات", "إدخال وعرض البيانات بسهولة", "حذف الجداول", "إنشاء الشبكات"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "أي عنصر يستخدم لعرض البيانات بشكل منظم للطباعة ؟", opts: ["جدول", "تقرير", "مفتاح أساسي", "حقل"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "نوع البيانات المناسب لتخزين الاسم هو:", opts: ["رقم", "تاريخ", "نص", "منطقية"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "من شروط المفتاح الأساسي أن يكون:", opts: ["قابل للتكرار", "فارغ أحياناً", "فريد وغير مكرر ولا يترك فارغاً", "من نوع نص فقط"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "للبحث عن بيانات معينة داخل قاعدة البيانات نستخدم كائن:", opts: ["الجدول", "الاستعلام <span class='code-ltr' dir='ltr'>(Query)</span>", "النموذج", "التقرير"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "نوع البيانات المناسب لتخزين (تاريخ الميلاد) هو:", opts: ["نص", "تاريخ/وقت", "رقم", "منطقي"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "لتخزين حالة الطالب (ناجح/راسب) نستخدم نوع بيانات:", opts: ["رقم", "تاريخ", "نعم/لا (منطقي)", "نص"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "أي الكائنات التالية هو المكون الأساسي لأي قاعدة بيانات؟", opts: ["النموذج", "التقرير", "الاستعلام", "الجدول"], ans: 3 },
+            { cat: "🗄️ قواعد البيانات", q: "استرجاع معلومات محددة تطابق شروط معينة يُعرف بـ:", opts: ["تحديث", "استعلام", "نموذج", "جدول"], ans: 1 },
+            { cat: "🗄️ قواعد البيانات", q: "عند تصميم جدول للطلاب، الحقل الأنسب ليكون مفتاحاً أساسياً:", opts: ["الاسم", "العنوان", "الرقم القومي <span class='code-ltr' dir='ltr'>(ID)</span>", "تاريخ الميلاد"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "التقارير تُستخدم أساساً من أجل:", opts: ["تعديل البيانات", "حذف السجلات", "تجهيز البيانات للطباعة بشكل منسق", "إضافة حقول جديدة"], ans: 2 },
+            { cat: "🗄️ قواعد البيانات", q: "البيانات <span class='code-ltr' dir='ltr'>(Data)</span> تختلف عن المعلومات <span class='code-ltr' dir='ltr'>(Information)</span> في أن البيانات:", opts: ["معالجة ومنظمة", "حقائق خام لم تتم معالجتها", "تستخدم في التقارير فقط", "صور فقط"], ans: 1 },
+
+            // ================== قسم الخوارزميات ==================
+            { cat: "⚙️ الخوارزميات", q: "ما المقصود بالخوارزمية ؟", opts: ["لغة برمجة", "جهاز حاسوب", "مجموعة خطوات مرتبة لحل مشكلة", "برنامج جاهز"], ans: 2 },
+            { cat: "⚙️ الخوارزميات", q: "من خصائص الخوارزمية الصحيحة أنها:", opts: ["غير مرتبة", "غير محددة النهاية", "واضحة ومحددة", "تعتمد على جهاز معين"], ans: 2 },
+            { cat: "⚙️ الخوارزميات", q: "أول خطوة عند حل المشكلات هي:", opts: ["كتابة البرنامج", "تحديد المشكلة والمخرجات", "اختبار الحل", "تنفيذ الحل"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "الخوارزمية يمكن تمثيلها رسومياً باستخدام:", opts: ["الخرائط الانسيابية <span class='code-ltr' dir='ltr'>(Flowcharts)</span>", "لوحة المفاتيح", "لغة الآلة", "قواعد البيانات"], ans: 0 },
+            { cat: "⚙️ الخوارزميات", q: "الشكل البيضاوي في خريطة التدفق يمثل:", opts: ["العمليات الحسابية", "البداية والنهاية", "إدخال البيانات", "اتخاذ القرار"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "شكل المعين (السمبوسة) في خريطة التدفق يمثل:", opts: ["البداية", "إخراج البيانات", "اتخاذ قرار (شرط)", "عملية حسابية"], ans: 2 },
+            { cat: "⚙️ الخوارزميات", q: "شكل متوازي الأضلاع في خريطة التدفق يستخدم لـ:", opts: ["البداية", "الإدخال والإخراج", "العمليات الحسابية", "اتخاذ القرار"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "شكل المستطيل في خريطة التدفق يستخدم لـ:", opts: ["البداية", "الإدخال", "عملية معالجة أو حسابية", "النهاية"], ans: 2 },
+            { cat: "⚙️ الخوارزميات", q: "الخوارزمية الجيدة يجب أن تعطي:", opts: ["نفس النتيجة دائماً لنفس المدخلات", "نتائج مختلفة", "نتائج عشوائية", "أخطاء"], ans: 0 },
+            { cat: "⚙️ الخوارزميات", q: "قبل تحويل الخوارزمية إلى برنامج يجب:", opts: ["تشغيل الحاسوب", "اختبار الخوارزمية والتأكد منها", "حذف الخطوات", "تغيير المشكلة"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "الخوارزمية سُميت بهذا الاسم نسبة إلى العالم:", opts: ["نيوتن", "الخوارزمي", "أينشتاين", "بيل جيتس"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "التفرع <span class='code-ltr' dir='ltr'>(Branching)</span> في خرائط التدفق يحدث عند استخدام شكل:", opts: ["البيضاوي", "المستطيل", "المعين (القرار)", "متوازي الأضلاع"], ans: 2 },
+            { cat: "⚙️ الخوارزميات", q: "في خرائط التدفق، عملية قراءة قيمة متغير <span class='code-ltr' dir='ltr'>X</span> توضع داخل شكل:", opts: ["مستطيل", "متوازي أضلاع", "معين", "بيضاوي"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "خريطة التدفق تساعد المبرمج على:", opts: ["تخزين البيانات", "تتبع خطوات الحل منطقياً", "زيادة سرعة الجهاز", "طباعة الورق"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "كل خريطة تدفق يجب أن تحتوي على:", opts: ["بداية واحدة ونهاية واحدة على الأقل", "عدة بدايات", "بدون نهاية", "شكل معين فقط"], ans: 0 },
+            { cat: "⚙️ الخوارزميات", q: "عملية <span class='code-ltr' dir='ltr'>X = Y + 5</span> توضع في خريطة التدفق داخل شكل:", opts: ["متوازي أضلاع", "مستطيل", "معين", "دائرة"], ans: 1 },
+            { cat: "⚙️ الخوارزميات", q: "الجملة (إذا كان <span class='code-ltr' dir='ltr'>X > 10</span> إذن...) توضع داخل شكل:", opts: ["مستطيل", "متوازي أضلاع", "معين", "بيضاوي"], ans: 2 },
+
+            // ================== قسم البرمجة والمصفوفات ==================
+            { cat: "💻 البرمجة والمصفوفات", q: "المتغير <span class='code-ltr' dir='ltr'>(Variable)</span> في البرمجة يستخدم من أجل:", opts: ["تشغيل الحاسوب", "تخزين قيمة يمكن تغييرها أثناء تشغيل البرنامج", "كتابة النصوص", "تصميم الصفحات"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "أي مما يلي يُعد اسم متغير صحيح برمجياً ؟", opts: ["<span class='code-ltr' dir='ltr'>1name</span>", "<span class='code-ltr' dir='ltr'>name-1</span>", "<span class='code-ltr' dir='ltr'>student_name</span>", "<span class='code-ltr' dir='ltr'>name space</span>"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "المصفوفة <span class='code-ltr' dir='ltr'>(Array)</span> تستخدم لتخزين:", opts: ["قيمة واحدة فقط", "مجموعة من القيم في متغير واحد", "صورة فقط", "أمر برمجي"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "تبدأ فهرسة <span class='code-ltr' dir='ltr'>(Index)</span> المصفوفة دائماً بالرقم:", opts: ["1", "2", "0", "-1"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "لمعرفة عدد عناصر المصفوفة نستخدم الخاصية:", opts: ["<span class='code-ltr' dir='ltr'>count</span>", "<span class='code-ltr' dir='ltr'>size</span>", "<span class='code-ltr' dir='ltr'>length</span>", "<span class='code-ltr' dir='ltr'>number</span>"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "لإضافة عنصر جديد في نهاية المصفوفة نستخدم الدالة:", opts: ["<span class='code-ltr' dir='ltr'>add()</span>", "<span class='code-ltr' dir='ltr'>push()</span>", "<span class='code-ltr' dir='ltr'>insert()</span>", "<span class='code-ltr' dir='ltr'>append()</span>"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "لحذف آخر عنصر من المصفوفة نستخدم الدالة:", opts: ["<span class='code-ltr' dir='ltr'>delete()</span>", "<span class='code-ltr' dir='ltr'>remove()</span>", "<span class='code-ltr' dir='ltr'>pop()</span>", "<span class='code-ltr' dir='ltr'>shift()</span>"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "للوصول للعنصر الأول في مصفوفة اسمها <span class='code-ltr' dir='ltr'>arr</span> نكتب:", opts: ["<span class='code-ltr' dir='ltr'>arr[1]</span>", "<span class='code-ltr' dir='ltr'>arr[first]</span>", "<span class='code-ltr' dir='ltr'>arr[0]</span>", "<span class='code-ltr' dir='ltr'>arr[]</span>"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "للوصول لآخر عنصر في المصفوفة برمجياً نكتب:", opts: ["<span class='code-ltr' dir='ltr'>arr[end]</span>", "<span class='code-ltr' dir='ltr'>arr[arr.length - 1]</span>", "<span class='code-ltr' dir='ltr'>arr[0]</span>", "<span class='code-ltr' dir='ltr'>arr[-1]</span>"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "حلقة التكرار <span class='code-ltr' dir='ltr'>for</span> تُستخدم عندما:", opts: ["نريد شرط معين", "نعرف عدد مرات التكرار مسبقاً", "نريد طباعة مرة واحدة", "نخطئ في الكود"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "الدالة الرياضية التي تقوم بتقريب الرقم لأقرب عدد صحيح أقل منه:", opts: ["<span class='code-ltr' dir='ltr'>Math.ceil()</span>", "<span class='code-ltr' dir='ltr'>Math.floor()</span>", "<span class='code-ltr' dir='ltr'>Math.round()</span>", "<span class='code-ltr' dir='ltr'>Math.abs()</span>"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "الدالة الرياضية للتقريب العادي (حسب الكسر) هي:", opts: ["<span class='code-ltr' dir='ltr'>Math.ceil()</span>", "<span class='code-ltr' dir='ltr'>Math.floor()</span>", "<span class='code-ltr' dir='ltr'>Math.round()</span>", "<span class='code-ltr' dir='ltr'>Math.random()</span>"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "اختبار البرنامج <span class='code-ltr' dir='ltr'>(Testing)</span> يهدف إلى:", opts: ["زيادة حجم الكود", "اكتشاف الأخطاء وتصحيحها قبل النشر", "حذف الأوامر", "تغيير لغة البرمجة"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "إذا كانت المصفوفة <span class='code-ltr' dir='ltr'>arr=[10, 20, 30]</span>، فإن قيمة <span class='code-ltr' dir='ltr'>arr[1]</span> هي:", opts: ["10", "20", "30", "خطأ"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "لإضافة عنصر في بداية المصفوفة نستخدم الدالة:", opts: ["<span class='code-ltr' dir='ltr'>push()</span>", "<span class='code-ltr' dir='ltr'>pop()</span>", "<span class='code-ltr' dir='ltr'>unshift()</span>", "<span class='code-ltr' dir='ltr'>shift()</span>"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "الجملة الشرطية <span class='code-ltr' dir='ltr'>(If statement)</span> تستخدم من أجل:", opts: ["تكرار الأوامر", "اتخاذ قرار بناءً على شرط", "إنشاء مصفوفة", "تغيير لون النص"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "الرمز <span class='code-ltr' dir='ltr'>(==)</span> في البرمجة يستخدم لـ:", opts: ["إسناد قيمة", "المقارنة والتأكد من المساواة", "الجمع", "الضرب"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "المتغير من نوع <span class='code-ltr' dir='ltr'>Boolean</span> يخزن:", opts: ["أرقام", "نصوص", "قيمتين فقط <span class='code-ltr' dir='ltr'>(True/False)</span>", "مصفوفات"], ans: 2 },
+            { cat: "💻 البرمجة والمصفوفات", q: "عند الإعلان عن متغير في <span class='code-ltr' dir='ltr'>JavaScript</span> نستخدم الكلمة:", opts: ["<span class='code-ltr' dir='ltr'>var</span> أو <span class='code-ltr' dir='ltr'>let</span>", "<span class='code-ltr' dir='ltr'>function</span>", "<span class='code-ltr' dir='ltr'>array</span>", "<span class='code-ltr' dir='ltr'>string</span>"], ans: 0 },
+            { cat: "💻 البرمجة والمصفوفات", q: "الدالة التي تقوم بتوليد رقم عشوائي هي:", opts: ["<span class='code-ltr' dir='ltr'>Math.round()</span>", "<span class='code-ltr' dir='ltr'>Math.random()</span>", "<span class='code-ltr' dir='ltr'>Math.floor()</span>", "<span class='code-ltr' dir='ltr'>Math.ceil()</span>"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "عملية التوثيق <span class='code-ltr' dir='ltr'>(Documentation)</span> للبرنامج تفيد في:", opts: ["إبطاء البرنامج", "فهم الكود وتسهيل التعديل عليه مستقبلاً", "إخفاء الكود", "تشغيل البرنامج"], ans: 1 },
+            { cat: "💻 البرمجة والمصفوفات", q: "لغة البرمجة هي:", opts: ["لغة البشر", "وسيلة تواصل بين المستخدم والحاسوب", "مجموعة قواعد لكتابة أوامر الحاسوب", "نظام تشغيل"], ans: 2 },
+            
+            // ================== قسم تطوير الويب ==================
+            { cat: "🌐 تطوير الويب", q: "اللغة المسؤولة عن بناء الهيكل الأساسي لصفحة الويب هي:", opts: ["<span class='code-ltr' dir='ltr'>CSS</span>", "<span class='code-ltr' dir='ltr'>JavaScript</span>", "<span class='code-ltr' dir='ltr'>HTML</span>", "<span class='code-ltr' dir='ltr'>Python</span>"], ans: 2 },
+            { cat: "🌐 تطوير الويب", q: "تُستخدم لغة <span class='code-ltr' dir='ltr'>CSS</span> من أجل:", opts: ["تشغيل الخادم", "تنسيق وتصميم شكل صفحة الويب", "تخزين البيانات", "كتابة الهيكل"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "الوسم <span class='code-ltr' dir='ltr'>&lt;h1&gt;</span> يستخدم لتمثيل:", opts: ["فقرة نصية", "صورة", "عنوان رئيسي بخط كبير", "رابط"], ans: 2 },
+            { cat: "🌐 تطوير الويب", q: "الوسم <span class='code-ltr' dir='ltr'>&lt;p&gt;</span> يستخدم لعرض:", opts: ["صورة", "عنوان", "فقرة نصية <span class='code-ltr' dir='ltr'>(Paragraph)</span>", "جدول"], ans: 2 },
+            { cat: "🌐 تطوير الويب", q: "أي خاصية تستخدم لتغيير لون النص في <span class='code-ltr' dir='ltr'>CSS</span> ؟", opts: ["<span class='code-ltr' dir='ltr'>font-size</span>", "<span class='code-ltr' dir='ltr'>background-color</span>", "<span class='code-ltr' dir='ltr'>border</span>", "<span class='code-ltr' dir='ltr'>color</span>"], ans: 3 },
+            { cat: "🌐 تطوير الويب", q: "ملف <span class='code-ltr' dir='ltr'>CSS</span> خارجي يتم ربطه بصفحة <span class='code-ltr' dir='ltr'>HTML</span> باستخدام وسم:", opts: ["<span class='code-ltr' dir='ltr'>&lt;style&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;script&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;meta&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;link&gt;</span>"], ans: 3 },
+            { cat: "🌐 تطوير الويب", q: "يتم ربط ملف <span class='code-ltr' dir='ltr'>JavaScript</span> بصفحة <span class='code-ltr' dir='ltr'>HTML</span> باستخدام وسم:", opts: ["<span class='code-ltr' dir='ltr'>&lt;link&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;style&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;script&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;js&gt;</span>"], ans: 2 },
+            { cat: "🌐 تطوير الويب", q: "ما وظيفة لغة <span class='code-ltr' dir='ltr'>JavaScript</span> داخل صفحات الويب ؟", opts: ["بناء هيكل الصفحة", "تصميم شكل الصفحة", "جعل الصفحة تفاعلية وديناميكية", "تخزين البيانات"], ans: 2 },
+            { cat: "🌐 تطوير الويب", q: "الدالة <span class='code-ltr' dir='ltr'>document.getElementById()</span> تستخدم لـ:", opts: ["إنشاء عنصر", "حذف عنصر", "الوصول لعنصر <span class='code-ltr' dir='ltr'>HTML</span> محدد بواسطة الـ <span class='code-ltr' dir='ltr'>ID</span>", "تغيير الحجم"], ans: 2 },
+            { cat: "🌐 تطوير الويب", q: "الخاصية <span class='code-ltr' dir='ltr'>textContent</span> في <span class='code-ltr' dir='ltr'>JavaScript</span> تُستخدم لـ:", opts: ["تغيير لون النص", "تغيير أو قراءة محتوى النص داخل العنصر", "تغيير حجم الخط", "إخفاء العنصر"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "أي عنصر يستخدم لتنفيذ حدث عند النقر عليه غالباً؟", opts: ["<span class='code-ltr' dir='ltr'>&lt;p&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;button&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;div&gt;</span>", "<span class='code-ltr' dir='ltr'>&lt;h1&gt;</span>"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "الهدف من تطبيق الاختبارات التفاعلية هو:", opts: ["عرض معلومات فقط", "تقييم المستخدم من خلال أسئلة تفاعلية", "تصميم الصور", "تخزين الملفات"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "الصفحة التفاعلية <span class='code-ltr' dir='ltr'>(Dynamic)</span> تختلف عن الثابتة <span class='code-ltr' dir='ltr'>(Static)</span> في أنها:", opts: ["لا تحتوي نصوص", "تستجيب لإجراءات المستخدم وتتغير برمجياً", "لا تستخدم أكواد", "محتواها ثابت لا يتغير"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "أي كود مما يلي يغير نص عنصر ليكون <span class='code-ltr' dir='ltr'>'Hello'</span>؟", opts: ["<span class='code-ltr' dir='ltr'>element.text='Hello'</span>", "<span class='code-ltr' dir='ltr'>element.textContent='Hello'</span>", "<span class='code-ltr' dir='ltr'>element.inner='Hello'</span>", "<span class='code-ltr' dir='ltr'>element.style='Hello'</span>"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "لتغيير لون خلفية عنصر باستخدام <span class='code-ltr' dir='ltr'>JS</span> نكتب:", opts: ["<span class='code-ltr' dir='ltr'>element.color='red'</span>", "<span class='code-ltr' dir='ltr'>element.style.backgroundColor='red'</span>", "<span class='code-ltr' dir='ltr'>element.bg='red'</span>", "<span class='code-ltr' dir='ltr'>element.back='red'</span>"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "الهدف الأساسي من العرض التقديمي لموقع ويب هو:", opts: ["كتابة الكود", "شرح فكرة الموقع ومكوناته قبل أو بعد برمجته", "تشغيل الموقع", "تخزين البيانات"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "يفضل أن يحتوي العرض التقديمي للمشروع على:", opts: ["نصوص طويلة ومملة", "شرح واضح وبسيط مدعوم بالصور والتصميم", "كود كامل للموقع", "بيانات سرية"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "من فوائد العرض التقديمي الجيد للموقع:", opts: ["تعقيد الفكرة", "توضيح فكرة الموقع وإقناع الآخرين بها", "تقليل الجودة", "حذف المحتوى"], ans: 1 },
+            { cat: "🌐 تطوير الويب", q: "العرض التقديمي للموقع يستخدم غالباً:", opts: ["لحذف الموقع", "لتصميم الفكرة وإقناع الممولين والمستخدمين", "لإبطاء الجهاز", "لإيقاف المتصفح"], ans: 1 },
+
+            // ================== قسم الذكاء الاصطناعي ==================
+            { cat: "🤖 الذكاء الاصطناعي", q: "الذكاء الاصطناعي التوليدي لا يعتمد على:", opts: ["البيانات الضخمة", "التوقع الإحصائي", "الإدراك البشري الحقيقي (الوعي)", "التعلم من البيانات"], ans: 2 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "من أمثلة أدوات الذكاء الاصطناعي التوليدي:", opts: ["<span class='code-ltr' dir='ltr'>Microsoft Word</span>", "<span class='code-ltr' dir='ltr'>ChatGPT / Gemini</span>", "<span class='code-ltr' dir='ltr'>Excel</span>", "<span class='code-ltr' dir='ltr'>Paint</span>"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "يُستخدم الذكاء الاصطناعي التوليدي في الويب لـ:", opts: ["تدمير المواقع", "اقتراح وتوليد أكواد <span class='code-ltr' dir='ltr'>HTML/CSS/JS</span>", "إبطاء الإنترنت", "تغيير الشاشة"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "عند استخدام الذكاء الاصطناعي لتوليد كود، يجب أن يكون الـ الموجه <span class='code-ltr' dir='ltr'>(Prompt)</span>:", opts: ["مبهماً", "قصيراً جداً", "دقيقاً وواضحاً بالتفاصيل", "بأي لغة غير مفهومة"], ans: 2 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "الذكاء الاصطناعي التوليدي قادر على:", opts: ["الشعور بالغضب", "توليد نصوص وصور وأكواد جديدة", "إصلاح الأجهزة المكسورة", "التفكير كالإنسان تماماً"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "الصفحة الثابتة التي ينشئها الذكاء الاصطناعي تتميز بأنها:", opts: ["يتغير محتواها تلقائياً", "تعتمد على تفاعل المستخدم", "تعرض محتوى ثابتاً", "تحتاج <span class='code-ltr' dir='ltr'>JavaScript</span> دائماً"], ans: 2 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "الذكاء الاصطناعي التوليدي يساعد في إنشاء صفحات تفاعلية عن طريق:", opts: ["كتابة النصوص فقط", "إنشاء كود <span class='code-ltr' dir='ltr'>JavaScript</span> للتفاعل", "حذف عناصر الصفحة", "تغيير نظام التشغيل"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "عند استخدام الذكاء الاصطناعي لإنشاء صفحة ويب ثابتة يجب تحديد:", opts: ["سرعة الإنترنت", "شكل ومحتوى الصفحة المطلوب بدقة", "نوع المعالج", "نظام التشغيل"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "اللغة الأساسية التي يقترحها الذكاء الاصطناعي لبناء هيكل الصفحة هي:", opts: ["<span class='code-ltr' dir='ltr'>CSS</span>", "<span class='code-ltr' dir='ltr'>JavaScript</span>", "<span class='code-ltr' dir='ltr'>Python</span>", "<span class='code-ltr' dir='ltr'>HTML</span>"], ans: 3 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "من مميزات استخدام الذكاء الاصطناعي التوليدي في برمجة الويب:", opts: ["زيادة التعقيد", "توفير الوقت والجهد للمبرمج", "منع التعديل على الكود", "تقليل جودة الصفحة"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "الذكاء الاصطناعي التوليدي يمكنه اقتراح كود تفاعلي يعتمد بشكل أساسي على:", opts: ["<span class='code-ltr' dir='ltr'>HTML</span> فقط", "<span class='code-ltr' dir='ltr'>CSS</span> فقط", "الصور", "<span class='code-ltr' dir='ltr'>JavaScript</span>"], ans: 3 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "لكتابة أمر <span class='code-ltr' dir='ltr'>(Prompt)</span> مثالي للذكاء الاصطناعي يجب:", opts: ["تحديد الهدف واللغة المطلوبة بوضوح", "كتابة حرف واحد", "عدم ذكر التفاصيل", "استخدام رموز غريبة"], ans: 0 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "هل يمكن للذكاء الاصطناعي اكتشاف الأخطاء البرمجية <span class='code-ltr' dir='ltr'>(Debugging)</span>؟", opts: ["لا يمكنه أبداً", "نعم، يمكنه تحليل الكود واقتراح حلول", "يحذف الكود", "يبطئ الجهاز"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "مصطلح <span class='code-ltr' dir='ltr'>AI</span> يشير إلى:", opts: ["شبكات الإنترنت", "الذكاء الاصطناعي <span class='code-ltr' dir='ltr'>(Artificial Intelligence)</span>", "قواعد البيانات", "معالجة النصوص"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "يعتمد الذكاء الاصطناعي في تدريبه على:", opts: ["قاعدة بيانات ضخمة جداً <span class='code-ltr' dir='ltr'>(Big Data)</span>", "ملف واحد فقط", "الإنترنت البطيء", "عدم وجود بيانات"], ans: 0 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "الذكاء الاصطناعي التوليدي يقوم بـ:", opts: ["البحث فقط", "توليد محتوى جديد بناءً على الأنماط التي تعلمها", "مسح البيانات", "تعطيل الخوادم"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "يُنصح عند نسخ كود من الذكاء الاصطناعي بـ:", opts: ["وضعه مباشرة دون فهم", "مراجعته وفهمه قبل استخدامه", "مسحه", "تغيير لغته"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "تقنية تعرّف الوجه في الهواتف هي مثال على:", opts: ["الشبكات المحلية", "تطبيقات الذكاء الاصطناعي", "قواعد البيانات النصية", "تصميم الويب"], ans: 1 },
+            { cat: "🤖 الذكاء الاصطناعي", q: "المحاكاة <span class='code-ltr' dir='ltr'>(Simulation)</span> في الذكاء الاصطناعي تعني:", opts: ["تدمير النظام", "تقليد سلوك أو نظام معين لفهمه وتطويره", "مسح الذاكرة", "إغلاق المتصفح"], ans: 1 }
+        ];
+
+        // خلط الأسئلة
+        let questions = allQuestions.sort(() => 0.5 - Math.random());
+        
+        // حساب النسب لفتح الهدايا
+        const milestone1 = Math.floor(questions.length * 0.25);
+        const milestone2 = Math.floor(questions.length * 0.50);
+        const milestone3 = Math.floor(questions.length * 0.75);
+        const milestone4 = Math.floor(questions.length * 0.90);
+
+        const motivations = [
+            "أداء قيادي أسطوري! توجيه ميت غمر يفتخر بهذه العبقرية 🌟",
+            "استمر يا مهندس المستقبل! إجاباتك تدل على تركيز حاد وثقة 💻",
+            "هذا هو مستوى الاحتراف الحقيقي! دقة، سرعة، وقيادة 🚀",
+            "أنت تقترب من القمة بخطى ثابتة! واصل التميز 🔥",
+            "إجاباتك تعكس عقلية تقنية فذة، أنت تصنع الفارق 💡"
+        ];
+
+        let currentIdx = 0; let score = 0; let streak = 0; let isAnswered = false; let userLevel = "مبتدئ 🥉"; let timeLeft = 30; let timerInterval; let isFrozen = false; let questionsAnswered = 0;
+        const questionText = document.getElementById("question-text"); const categoryBadge = document.getElementById("category-badge"); const optionsGrid = document.getElementById("options-grid"); const currQSpan = document.getElementById("current-q"); const totalQSpan = document.getElementById("total-q"); const scoreSpan = document.getElementById("score-display"); const streakSpan = document.getElementById("streak-display"); const levelSpan = document.getElementById("level-display"); const timerSpan = document.getElementById("timer-display"); const progressBar = document.getElementById("progress-bar"); const motivationModal = document.getElementById("motivation-modal"); const motivationText = document.getElementById("motivation-text"); const finishModal = document.getElementById("finish-modal"); const btn5050 = document.getElementById("btn-5050"); const btnFreeze = document.getElementById("btn-freeze"); const btnSkip = document.getElementById("btn-skip");
+
+        totalQSpan.innerText = questions.length;
+        loadQuestion();
+
+        // دعم لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if(e.key.toLowerCase() === 'm') toggleMute(); // زر مخفي لكتم الصوت
+            if (motivationModal.classList.contains('active') && e.key === 'Enter') {
+                closeMotivation();
+            } else if (!isAnswered && !finishModal.classList.contains('active')) {
+                const btns = optionsGrid.querySelectorAll('.option-btn:not(.hidden)');
+                if (e.key === '1' && btns[0]) btns[0].click();
+                if (e.key === '2' && btns[1]) btns[1].click();
+                if (e.key === '3' && btns[2]) btns[2].click();
+                if (e.key === '4' && btns[3]) btns[3].click();
+            }
+        });
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            if(!isFrozen) timeLeft = 30;
+            timerSpan.innerText = timeLeft;
+            timerSpan.classList.remove("timer-warning");
+            
+            timerInterval = setInterval(() => {
+                if(!isFrozen) {
+                    timeLeft--;
+                    timerSpan.innerText = timeLeft;
+                    if(timeLeft <= 10) timerSpan.classList.add("timer-warning");
+                    if(timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        handleTimeOut();
+                    }
+                }
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            isAnswered = false;
+            isFrozen = false;
+            const q = questions[currentIdx];
+            currQSpan.innerText = currentIdx + 1;
+            categoryBadge.innerText = q.cat;
+            questionText.innerHTML = `<bdi>${q.q}</bdi>`; // حماية النص
+            
+            const progress = ((currentIdx) / questions.length) * 100;
+            progressBar.style.width = progress + "%";
+
+            optionsGrid.innerHTML = "";
+            q.opts.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                // استخدام BDI لحماية اتجاه النص والاختيارات بالكامل
+                btn.innerHTML = `<span class="option-num">${index+1}</span> <bdi style="width:100%;">${opt}</bdi>`;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+            
+            startTimer();
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if (isAnswered) return;
+            isAnswered = true;
+            questionsAnswered++;
+            clearInterval(timerInterval);
+
+            const q = questions[currentIdx];
+            const allBtns = optionsGrid.children;
+
+            if (selectedIndex === q.ans) {
+                btnElement.classList.add("correct");
+                playTone(600, 'sine', 0.1, 0.05);
+                setTimeout(() => playTone(800, 'sine', 0.15, 0.05), 100);
+                
+                streak++;
+                let points = 10 + (timeLeft * 0.5) + (streak * 2); 
+                score += Math.round(points);
+                
+                // تأثير بصري للمتتاليات
+                if(streak > 0 && streak % 5 === 0) triggerMiniConfetti();
+
+                updateHUD();
+                playVisualPop(scoreSpan, "var(--success)");
+                playVisualPop(streakSpan, "#F59E0B");
+
+                if (questionsAnswered === milestone1 || questionsAnswered === milestone2 || questionsAnswered === milestone3 || questionsAnswered === milestone4) {
+                    setTimeout(() => showMotivation(), 800);
+                } else {
+                    setTimeout(nextQuestion, 1200);
+                }
+            } else {
+                btnElement.classList.add("wrong");
+                allBtns[q.ans].classList.add("correct"); 
+                playTone(250, 'sawtooth', 0.3, 0.05);
+                
+                streak = 0;
+                updateHUD();
+                setTimeout(nextQuestion, 2400);
+            }
+
+            for(let i=0; i<allBtns.length; i++) {
+                allBtns[i].style.pointerEvents = 'none';
+            }
+        }
+
+        function handleTimeOut() {
+            if (isAnswered) return;
+            isAnswered = true;
+            questionsAnswered++;
+            streak = 0;
+            updateHUD();
+            playTone(200, 'sawtooth', 0.4, 0.05);
+            
+            const q = questions[currentIdx];
+            const allBtns = optionsGrid.children;
+            allBtns[q.ans].classList.add("correct");
+            for(let i=0; i<allBtns.length; i++) allBtns[i].style.pointerEvents = 'none';
+            setTimeout(nextQuestion, 2400);
+        }
+
+        function use5050() {
+            if(isAnswered || btn5050.disabled) return;
+            btn5050.disabled = true;
+            const q = questions[currentIdx];
+            const allBtns = optionsGrid.children;
+            let hiddenCount = 0;
+            for(let i=0; i<allBtns.length; i++) {
+                if(i !== q.ans && hiddenCount < 2) {
+                    allBtns[i].classList.add("hidden");
+                    hiddenCount++;
+                }
+            }
+        }
+
+        function useFreeze() {
+            if(isAnswered || btnFreeze.disabled) return;
+            btnFreeze.disabled = true;
+            isFrozen = true;
+            timerSpan.classList.remove("timer-warning");
+            timerSpan.style.color = "var(--cyan-neon)";
+            timerSpan.innerText = "❄️";
+        }
+
+        function useSkip() {
+            if(isAnswered || btnSkip.disabled) return;
+            btnSkip.disabled = true;
+            isAnswered = true; 
+            clearInterval(timerInterval);
+            streak = 0;
+            updateHUD();
+            const allBtns = optionsGrid.children;
+            for(let i=0; i<allBtns.length; i++) allBtns[i].style.pointerEvents = 'none';
+            
+            questionText.innerText = "⏭️ تم تخطي السؤال احترافياً...";
+            setTimeout(nextQuestion, 1200);
+        }
+
+        function updateHUD() {
+            scoreSpan.innerText = score;
+            streakSpan.innerText = "🔥 " + streak;
+            if(streak > 3) streakSpan.style.textShadow = "0 0 25px #F59E0B";
+            else streakSpan.style.textShadow = "0 0 15px rgba(245,158,11,0.6)";
+            
+            if (score > 400) { userLevel = "متوسط 🥈"; levelSpan.style.color = "var(--silver)"; }
+            if (score > 800) { userLevel = "متقدم 🥇"; levelSpan.style.color = "var(--gold-primary)"; }
+            if (score > 1500) { userLevel = "احترافي 💎"; levelSpan.style.color = "var(--cyan-neon)"; }
+            if (score > 2200) { userLevel = "أسطوري 👑"; levelSpan.style.color = "#FF00FF"; }
+            
+            levelSpan.innerText = userLevel;
+        }
+
+        function playVisualPop(element, color) {
+            const originalColor = element.style.color;
+            element.style.transform = "scale(1.5)";
+            element.style.color = color;
+            setTimeout(() => {
+                element.style.transform = "scale(1)";
+                element.style.color = originalColor || "#FFF";
+            }, 300);
+        }
+
+        function triggerMiniConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.style.display = 'block';
+            for (let i = 0; i < 15; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                conf.style.background = 'var(--cyan-neon)';
+                container.appendChild(conf);
+                setTimeout(() => conf.remove(), 3000);
+            }
+        }
+
+        function showMotivation() {
+            const randTxt = motivations[Math.floor(Math.random() * motivations.length)];
+            motivationText.innerText = randTxt;
+            motivationModal.classList.add("active");
+            playTone(400, 'sine', 0.1, 0.05);
+            setTimeout(() => playTone(600, 'sine', 0.2, 0.05), 100);
+        }
+
+        function closeMotivation() {
+            motivationModal.classList.remove("active");
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < questions.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.style.display = 'block';
+            for (let i = 0; i < 120; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                conf.style.animationDelay = Math.random() * 1.5 + 's';
+                conf.style.background = Math.random() > 0.5 ? 'var(--gold-primary)' : 'var(--cyan-neon)';
+                if(Math.random() > 0.7) conf.style.borderRadius = "50%";
+                container.appendChild(conf);
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            progressBar.style.width = "100%";
+            const requiredBase = (questions.length * 10) * 0.6; 
+            if (score >= requiredBase) {
+                createConfetti();
+                playTone(400, 'sine', 0.2, 0.05); setTimeout(() => playTone(600, 'sine', 0.2, 0.05), 200); setTimeout(() => playTone(800, 'sine', 0.4, 0.05), 400);
+                finishModal.classList.add("active");
+            } else {
+                alert(`أحسنت المحاولة! نقاطك (${score}) تحتاج لتركيز أكبر لتنال شهادة الإنجاز التقديرية. حاول مرة أخرى بإصرار القادة.`);
+                location.reload();
+            }
+        }
+
+        function generateCertificate() {
+            const nameInput = document.getElementById("student-name").value.trim();
+            if (!nameInput) {
+                alert("الرجاء إدخال اسمك لطباعة الشهادة التقديرية!");
+                return;
+            }
+            document.getElementById("cert-student-name").innerText = nameInput;
+            document.getElementById("main-header").style.display = "none";
+            document.getElementById("supervision").style.display = "none";
+            document.getElementById("ticker").style.display = "none";
+            document.getElementById("hud").style.display = "none";
+            document.getElementById("lifelines-container").style.display = "none";
+            document.getElementById("quiz-box").style.display = "none";
+            document.getElementById("page-footer").style.display = "none";
+            document.getElementById("confetti-container").style.display = "none";
+            document.getElementById("mute-btn").style.display = "none";
+            finishModal.classList.remove("active");
+            
+            document.body.style.background = "#fff";
+            document.querySelector(".background-animation").style.display = "none";
+            
+            document.getElementById("certificate").style.display = "block";
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
+
