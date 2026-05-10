@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -53,9 +53,7 @@
             height: 50px;
             cursor: pointer;
             z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
             transition: all 0.3s;
             backdrop-filter: blur(5px);
@@ -74,17 +72,17 @@
         .supervision-names { display: flex; justify-content: space-around; flex-wrap: wrap; font-size: 1.2rem; font-weight: 800; color: var(--text-main); }
         .supervision-names span { color: var(--cyan-neon); font-size: 1.5rem; display: block; margin-top: 5px; font-weight: 900; text-shadow: 0 0 10px rgba(0,229,255,0.3); }
 
-        /* Clean Tickers */
+        /* Clean Tickers - تم تعديل الاتجاه من اليسار لليمين */
         .tickers-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 30px; }
         .ticker-wrap { width: 100%; background: rgba(3, 7, 18, 0.95); padding: 12px 0; overflow: hidden; border-top: 2px solid rgba(0,229,255,0.4); border-bottom: 2px solid rgba(0,229,255,0.4); box-shadow: 0 5px 15px rgba(0,0,0,0.6); }
-        .ticker { display: inline-block; white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 1.4rem; font-weight: 900; color: var(--gold-primary); text-shadow: 1px 1px 2px #000; }
+        .ticker { display: inline-block; white-space: nowrap; padding-left: 100%; animation: ticker 35s linear infinite; font-size: 1.4rem; font-weight: 900; color: var(--gold-primary); text-shadow: 1px 1px 2px #000; }
         .ticker-wrap-arrays { width: 100%; background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05)); padding: 12px 0; overflow: hidden; border-top: 1px dashed var(--gold-primary); border-bottom: 1px dashed var(--gold-primary); box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15); cursor: pointer; transition: 0.3s; }
-        .ticker-arrays { display: inline-block; white-space: nowrap; padding-right: 100%; animation: tickerArrays 45s linear infinite; font-size: 1.4rem; font-family: 'Tajawal', sans-serif; font-weight: 900; color: #FFF; letter-spacing: 1px; }
+        .ticker-arrays { display: inline-block; white-space: nowrap; padding-left: 100%; animation: tickerArrays 45s linear infinite; font-size: 1.4rem; font-family: 'Tajawal', sans-serif; font-weight: 900; color: #FFF; letter-spacing: 1px; }
         .ticker-wrap-arrays:hover { background: rgba(212, 175, 55, 0.3); border-color: #FFF; }
         .ticker-wrap-arrays:hover .ticker-arrays { animation-play-state: paused; color: var(--gold-light); }
         
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        @keyframes tickerArrays { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        @keyframes ticker { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        @keyframes tickerArrays { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
         /* HUD Command Center */
         .hud-container { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 20px; padding: 15px 30px; background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(3, 7, 18, 0.95)); border-radius: 12px; border: 1px solid rgba(0, 229, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
@@ -812,4 +810,3 @@
     </script>
 </body>
 </html>
-
